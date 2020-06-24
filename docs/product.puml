@@ -1,0 +1,38 @@
+@startuml
+
+set namespaceSeparator \\
+
+interface Product\\Business\\Contract\\ProductRepositoryInterface {
+    +get(ProductSearchRequest $searchRequest): ProductCollection
+}
+
+class Product\\Business\\Domain\\Product {
+    +getSku(): string
+    +getName(): string
+    +getPrice(): float
+    +getBoxSizeInCubicMeter(): float
+}
+
+
+
+class Product\\Business\\Domain\\SearchRequest\\ProductSearchRequest {
+    +getSkuList(): string[]
+}
+
+
+Product\\Business\\Domain\\ProductCollection ..> Product\\Business\\Domain\\Product
+
+class Product\\Business\\Domain\\ProductCollection {
+    -Product[] items
+}
+
+Product\\Business\\Contract\\ProductRepositoryInterface .left.> Product\\Business\\Domain\\ProductCollection
+Product\\Business\\Contract\\ProductRepositoryInterface ..> Product\\Business\\Domain\\SearchRequest\\ProductSearchRequest
+Product\\DataAccess\\Repository\\ProductRepository .left.> Product\\Business\\Domain\\SearchRequest\\ProductSearchRequest
+
+class Product\\DataAccess\\Repository\\ProductRepository implements Product\\Business\\Contract\\ProductRepositoryInterface {
+    +get(ProductSearchRequest $searchRequest): ProductCollection
+}
+
+
+@enduml

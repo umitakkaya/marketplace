@@ -1,0 +1,68 @@
+@startuml
+
+set namespaceSeparator \\
+
+
+
+
+class Cart\\Business\\Input\\AddToCartInput {
+    +getSku(): string
+    +getCartId(): UuidInterface
+    +getQuantity(): int
+}
+
+interface Cart\\Business\\Contract\\CartServiceInterface {
+    +add(AddToCartInput $input): Cart
+}
+
+
+interface Cart\\Business\\Contract\\CartRepositoryInterface {
+    +get(UuidInterface $cartId): Cart
+    +save(Cart): void
+}
+
+
+interface Cart\\Business\\Contract\\ProductRepositoryInterface {
+    +get(string $sku): Product
+}
+
+class Cart\\Business\\Service\\CartService implements Cart\\Business\\Contract\\CartServiceInterface {
+    +add(AddToCartInput $input): Cart
+}
+
+class Cart\\Business\\Domain\\Cart {
+    +cartTotal(): float
+    +add(CartItem $itemToAdd): void
+}
+
+class Cart\\Business\\Domain\\CartItem {
+    -Product product
+    -int quantity
+    +price(): float
+    +equalsTo(CartItem itemToCompare): bool
+    +combine(CartItem itemToCombine): void
+    +getQuantity(): int
+    +getProduct(): Product
+}
+
+class Cart\\Business\\Domain\\Product {
+    +getSku(): string
+    +getName(): string
+    +getPrice(): float
+}
+
+class Cart\\DataAccess\\Repository\\CartRepository implements Cart\\Business\\Contract\\CartRepositoryInterface {
+    +get(UuidInterface $cartId): Cart
+    +save(Cart): void
+}
+
+Cart\\Business\\Domain\\Cart ..> Cart\\Business\\Domain\\CartItem
+Cart\\Business\\Domain\\CartItem .right.> Cart\\Business\\Domain\\Product
+
+Cart\\Business\\Contract\\CartServiceInterface ..> Cart\\Business\\Input\\AddToCartInput
+Cart\\Business\\Contract\\CartServiceInterface ..> Cart\\Business\\Domain\\Cart
+Cart\\Business\\Contract\\CartRepositoryInterface ..> Cart\\Business\\Domain\\Cart
+Cart\\Business\\Contract\\ProductRepositoryInterface ..> Cart\\Business\\Domain\\Product
+Cart\\Business\\Service\\CartService .left.> Cart\\Business\\Contract\\ProductRepositoryInterface
+
+@enduml

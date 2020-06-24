@@ -1,0 +1,6 @@
+@startuml
+component Product
+component Cart
+component Inbound
+Component Packing
+@enduml

@@ -25,7 +25,7 @@ class Product
         return $this->name;
     }
 
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }

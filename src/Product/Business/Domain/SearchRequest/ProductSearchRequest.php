@@ -7,17 +7,12 @@ use Webmozart\Assert\Assert;
 class ProductSearchRequest
 {
     /** @var string[] */
-    private $skuList;
-
-    public function hasSkuList(): bool
-    {
-        return empty($this->skuList);
-    }
+    private $skuList = [];
 
     /**
      * @return string[]
      */
-    public function getSkuList(): ?array
+    public function getSkuList(): array
     {
         return $this->skuList;
     }

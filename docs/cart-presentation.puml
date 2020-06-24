@@ -1,0 +1,42 @@
+@startuml
+set namespaceSeparator \\
+
+
+class Cart\\Presentation\\Web\\RequestHandler\\AddToCartRequestHandler {
+}
+
+class Cart\\Presentation\\Web\\Responder\\Json\\View\\CartJsonView {
+    +jsonSerialize()
+}
+
+class Cart\\Presentation\\Web\\Responder\\AddToCartResponder {
+    +respond(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+}
+
+
+class Cart\\Presentation\\Web\\Controller\\AddProductToCartController {
+}
+
+Cart\\Presentation\\Web\\Controller\\AddProductToCartController ..> Cart\\Business\\Contract\\CartServiceInterface
+Cart\\Presentation\\Web\\Controller\\AddProductToCartController ..> Cart\\Presentation\\Web\\RequestHandler\\AddToCartRequestHandler
+Cart\\Presentation\\Web\\Controller\\AddProductToCartController ..> Cart\\Presentation\\Web\\Responder\\AddToCartResponder
+
+Cart\\Presentation\\Web\\RequestHandler\\AddToCartRequestHandler ..> Cart\\Business\\Input\\AddToCartInput
+
+interface Cart\\Business\\Contract\\CartServiceInterface {
+    +add(AddToCartInput $input): Cart
+}
+
+Cart\\Business\\Contract\\CartServiceInterface ..> Cart\\Business\\Input\\AddToCartInput
+Cart\\Business\\Contract\\CartServiceInterface ..> Cart\\Business\\Domain\\Cart
+Cart\\Presentation\\Web\\Responder\\AddToCartResponder ..> Cart\\Business\\Domain\\Cart
+Cart\\Presentation\\Web\\Responder\\AddToCartResponder ..> Cart\\Presentation\\Web\\Responder\\Json\\View\\CartJsonView
+
+
+class Cart\\Business\\Input\\AddToCartInput {
+    +getSku(): string
+    +getCartId(): UuidInterface
+    +getQuantity(): int
+}
+
+@enduml

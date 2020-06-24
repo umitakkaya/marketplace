@@ -1,0 +1,41 @@
+@startuml
+set namespaceSeparator \\
+
+interface Cart\\Business\\Contract\\ProductRepositoryInterface {
+    +get(string $sku): Product
+}
+
+interface Product\\Business\\Contract\\ProductRepositoryInterface {
+    +get(ProductSearchRequest $searchRequest): ProductCollection
+}
+
+class Product\\Presentation\\Component\\Cart\\Bridge\\ProductRepositoryBridge implements Cart\\Business\\Contract\\ProductRepositoryInterface {
+    -ProductRepositoryInterface $localProductRepository
+    +get(string $sku): Cart\\Business\\Domain\\Product
+}
+
+class Product\\Business\\Domain\\ProductCollection {
+    -$items: Product\\Business\\Domain\\Product[]
+}
+
+
+class Product\\Business\\Domain\\Product {
+    +getSku(): string
+    +getName(): string
+    +getPrice(): float
+    +getBoxSizeInCubicMeter(): float
+}
+
+class Cart\\Business\\Domain\\Product {
+    +getSku(): string
+    +getName(): string
+    +getPrice(): float
+}
+
+
+Product\\Presentation\\Component\\Cart\\Bridge\\ProductRepositoryBridge ..> Product\\Business\\Domain\\ProductCollection
+Product\\Business\\Domain\\ProductCollection ..> Product\\Business\\Domain\\Product
+Product\\Presentation\\Component\\Cart\\Bridge\\ProductRepositoryBridge ..> Cart\\Business\\Domain\\Product
+Product\\Presentation\\Component\\Cart\\Bridge\\ProductRepositoryBridge -down-o Product\\Business\\Contract\\ProductRepositoryInterface
+
+@enduml
