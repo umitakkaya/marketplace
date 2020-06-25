@@ -16,7 +16,7 @@ class ProductCollection implements IteratorAggregate
      */
     public function __construct(array $items)
     {
-        Assert::allIsInstanceOf(Product::class, $items);
+        Assert::allIsInstanceOf($items, Product::class);
 
         $this->items = $items;
     }

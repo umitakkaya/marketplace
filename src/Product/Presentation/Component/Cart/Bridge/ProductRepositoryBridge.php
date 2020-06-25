@@ -14,10 +14,8 @@ class ProductRepositoryBridge implements RemoteProductRepositoryInterface
     private LocalProductRepositoryInterface $localProductRepository;
     private ProductResponseMapper $responseMapper;
 
-    public function __construct(
-        LocalProductRepositoryInterface $localProductRepository,
-        ProductResponseMapper $responseMapper
-    ) {
+    public function __construct(LocalProductRepositoryInterface $localProductRepository, ProductResponseMapper $responseMapper)
+    {
         $this->localProductRepository = $localProductRepository;
         $this->responseMapper = $responseMapper;
     }

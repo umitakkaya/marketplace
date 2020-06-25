@@ -24,10 +24,6 @@ $settings($containerBuilder);
 $dependencies = require __DIR__ . '/../app/dependencies.php';
 $dependencies($containerBuilder);
 
-// Set up repositories
-$repositories = require __DIR__ . '/../app/repositories.php';
-$repositories($containerBuilder);
-
 // Build PHP-DI Container instance
 $container = $containerBuilder->build();
 
@@ -57,6 +53,8 @@ $errorHandler = new ErrorHandler($callableResolver, $responseFactory);
 
 // Add Routing Middleware
 $app->addRoutingMiddleware();
+
+$app->addBodyParsingMiddleware();
 
 // Add Error Middleware
 $errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, false, false);

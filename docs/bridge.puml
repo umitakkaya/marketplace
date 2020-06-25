@@ -14,6 +14,13 @@ class Product\\Presentation\\Component\\Cart\\Bridge\\ProductRepositoryBridge im
     +get(string $sku): Cart\\Business\\Domain\\Product
 }
 
+namespace  Product\\Business\\Contract #Aqua {}
+namespace  Product\\Business\\Domain #Aqua {}
+namespace  Cart\\Business\\Contract #LightGreen {}
+namespace  Cart\\Business\\Domain #LightGreen {}
+namespace  Product\\Presentation\\Component\\Cart\\Bridge #Orange {}
+
+
 class Product\\Business\\Domain\\ProductCollection {
     -$items: Product\\Business\\Domain\\Product[]
 }
@@ -35,7 +42,7 @@ class Cart\\Business\\Domain\\Product {
 
 Product\\Presentation\\Component\\Cart\\Bridge\\ProductRepositoryBridge ..> Product\\Business\\Domain\\ProductCollection
 Product\\Business\\Domain\\ProductCollection ..> Product\\Business\\Domain\\Product
-Product\\Presentation\\Component\\Cart\\Bridge\\ProductRepositoryBridge ..> Cart\\Business\\Domain\\Product
-Product\\Presentation\\Component\\Cart\\Bridge\\ProductRepositoryBridge -down-o Product\\Business\\Contract\\ProductRepositoryInterface
+Product\\Presentation\\Component\\Cart\\Bridge\\ProductRepositoryBridge --o Product\\Business\\Contract\\ProductRepositoryInterface
+Product\\Presentation\\Component\\Cart\\Bridge\\ProductRepositoryBridge .up.> Cart\\Business\\Domain\\Product
 
 @enduml

@@ -21,7 +21,7 @@ class Cart implements IteratorAggregate
      */
     public function __construct(UuidInterface $cartId, array $items = [])
     {
-        Assert::allIsInstanceOf(CartItem::class, $items);
+        Assert::allIsInstanceOf($items, CartItem::class);
 
         $this->items = $items;
         $this->cartId = $cartId;

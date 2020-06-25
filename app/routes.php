@@ -1,12 +1,13 @@
 <?php
 declare(strict_types=1);
 
-use App\Application\Actions\User\ListUsersAction;
-use App\Application\Actions\User\ViewUserAction;
+use Marketplace\Cart\Presentation\Web\Action\AddProductToCartAction;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
+
+use function GuzzleHttp\Psr7\stream_for;
 
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
@@ -15,7 +16,8 @@ return function (App $app) {
     });
 
     $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello world!');
-        return $response;
+        return $response->withBody(stream_for('Hello!'));
     });
+
+    $app->post('/carts/{cart_id}/products', AddProductToCartAction::class);
 };
