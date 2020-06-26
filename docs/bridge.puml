@@ -19,6 +19,7 @@ namespace  Product\\Business\\Domain #Aqua {}
 namespace  Cart\\Business\\Contract #LightGreen {}
 namespace  Cart\\Business\\Domain #LightGreen {}
 namespace  Product\\Presentation\\Component\\Cart\\Bridge #Orange {}
+namespace  Product\\DataAccess\\Repository #Aqua {}
 
 
 class Product\\Business\\Domain\\ProductCollection {
@@ -39,6 +40,9 @@ class Cart\\Business\\Domain\\Product {
     +getPrice(): float
 }
 
+class Product\\DataAccess\\Repository\\ProductRepository implements Product\\Business\\Contract\\ProductRepositoryInterface {
+    +get(ProductSearchRequest $searchRequest): ProductCollection
+}
 
 Product\\Presentation\\Component\\Cart\\Bridge\\ProductRepositoryBridge ..> Product\\Business\\Domain\\ProductCollection
 Product\\Business\\Domain\\ProductCollection ..> Product\\Business\\Domain\\Product
