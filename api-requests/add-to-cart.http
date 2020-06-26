@@ -1,4 +1,4 @@
-POST http://localhost:8080/carts/f01879d7-6e06-4d87-a1f0-ab2203bf5e31/products
+POST http://127.0.0.1:8080/carts/f01879d7-6e06-4d87-a1f0-ab2203bf5e31/products
 Content-Type: application/json
 Accept: application/json
 
