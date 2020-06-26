@@ -36,6 +36,8 @@ class CartService implements CartServiceInterface
         $cart = $this->cartRepository->get($input->getCartId());
 
         $cart->add(new CartItem($product, $input->getQuantity()));
+        
+        $this->cartRepository->save($cart);
 
         return $cart;
     }
